@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "hitcolor",
+  "version": "${version}",
+  "name": "Hitcolor",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/lucad/Hitcolor"
+  },
+  "license": "MIT",
+  "icon": "assets/hitcolor/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "de.luludodo.hitcolor.client.Hitcolor"
+    ]
+  },
+  "mixins": [
+    "hitcolor.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
