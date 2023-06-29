@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.GlConst;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import de.luludodo.hitcolor.mixin.OverlayTextureMixin;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.texture.NativeImage;
@@ -17,10 +16,9 @@ public class Hitcolor implements ClientModInitializer {
     public static int color = 0x11FF0000;
     //                        0xAABBGGRR
 
+    // Texture used to update color
     public static NativeImageBackedTexture texture = null;
-    /**
-     * Runs the mod initializer on the client environment.
-     */
+
     @Override
     public void onInitializeClient() {
         ClientCommandRegistrationCallback.EVENT.register(
@@ -31,6 +29,7 @@ public class Hitcolor implements ClientModInitializer {
                                             argument("color", IntegerArgumentType.integer()).
                                                     executes(cmd -> {
                                                         color = cmd.getArgument("color", Integer.class);
+                                                        // Code from OverlayTexture.<init> to update Image with new colors
                                                         NativeImage nativeImage = texture.getImage();
                                                         for (int i = 0; i < 16; ++i) {
                                                             for (int j = 0; j < 16; ++j) {
@@ -46,6 +45,7 @@ public class Hitcolor implements ClientModInitializer {
                                                         texture.bindTexture();
                                                         nativeImage.upload(0, 0, 0, 0, 0, nativeImage.getWidth(), nativeImage.getHeight(), false, true, false, false);
                                                         RenderSystem.activeTexture(GlConst.GL_TEXTURE0);
+                                                        // Update Image end
                                                         return Command.SINGLE_SUCCESS;
                                                     })
                                     )
