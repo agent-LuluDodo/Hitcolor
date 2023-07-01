@@ -1,6 +1,7 @@
 package de.luludodo.hitcolor.mixin;
 
 import de.luludodo.hitcolor.client.Hitcolor;
+import de.luludodo.hitcolor.config.HitcolorConfig;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import org.spongepowered.asm.mixin.Final;
@@ -17,6 +18,6 @@ public abstract class OverlayTextureMixin {
     @ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/NativeImage;setColor(III)V", ordinal = 0), index = 2)
     private int hitColor(int x) {
         Hitcolor.texture = texture;
-        return Hitcolor.color;
+        return HitcolorConfig.getColor();
     }
 }
